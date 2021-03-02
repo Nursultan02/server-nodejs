@@ -1,7 +1,11 @@
 const express = require('express');
 const db = require('mongoose');
 
+const postRouter = require('./routes/postRouter');
+
 const app = express();
+
+app.use('/api/post', postRouter);
 
 const PORT = process.env.PORT || 8080;
 const dbUrl =
