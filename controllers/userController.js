@@ -21,7 +21,23 @@ class userController {
       });
     }
   }
-  login(req, res) {}
+  async login(req, res) {
+    const { userName, password } = req.body;
+    const candidate = await User.findOne({ userName });
+    if (candidate === null) {
+      res.status(400).json({
+        message: 'Пользователь не найден!',
+      });
+    } else {
+      bcrypt.compare(password, candidate.password, (err, result) => {
+        if (result) {
+          res.send(`Авторизация прошла успешна! Добро пожаловать ${userName}`);
+        } else {
+          res.status(401).json({ message: 'Пароль неверный!' });
+        }
+      });
+    }
+  }
 }
 
 module.exports = new userController();
