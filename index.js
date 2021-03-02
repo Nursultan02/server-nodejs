@@ -5,6 +5,7 @@ const postRouter = require('./routes/postRouter');
 
 const app = express();
 
+app.use(express.json());
 app.use('/api/post', postRouter);
 
 const PORT = process.env.PORT || 8080;
